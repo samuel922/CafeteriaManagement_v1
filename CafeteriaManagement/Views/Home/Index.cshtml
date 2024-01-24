@@ -1,0 +1,157 @@
+﻿@model HomeVM
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">POS</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">LociAfrica</a></li>
+                    <li class="breadcrumb-item active">POS</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row pos-container">
+   
+
+    <div class="col-lg-6 left">
+        <div class="card">
+            <div class="card-body">
+                <div class="top d-flex justify-content-center mb-3">
+                    <a class="d-flex">
+                        <span class="material-symbols-sharp">
+                            widgets
+                        </span>
+                        <h5>Menu</h5>
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="menu-items row">
+                            @foreach (var product in Model.Products)
+                            {
+                                <div class="menu-item col-md-4" data-product-id="@product.Id" id="menu-item">
+                                    <div class="menu-image cursor-pointer">
+                                        <img src="@product.ImageUrl" class="img-fluid" style="max-width: 100%; height: auto;" />
+                                    </div>
+                                    <div class="menu-info">
+                                        <p style="max-width: 100%">@product.Name</p>
+                                    </div>
+                                </div>
+
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+           
+
+        </div>
+    </div>
+
+    <div class="col-lg-6 right">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="cart-container">
+                        <a class="d-flex align-items-center justify-content-center">
+                            <span class="material-symbols-sharp">
+                                add_shopping_cart
+                            </span>
+                            <small>Cart</small>
+                        </a>
+                    </div>
+                    <div class="actions text-align-end">
+                        <span class="material-symbols-sharp">
+                            remove_shopping_cart
+                        </span>
+
+                        @*  <span class="material-symbols-sharp remove-item">
+                        delete
+                        </span> *@
+                    </div>
+                </div>
+
+                <form method="post" id="myForm">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-sm m-0" id="cart-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="font-weight-bold">Food Ordered</th>
+                                                <th class="font-weight-bold">Quantity</th>
+                                                <th class="font-weight-bold">Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p>Total Price:</p>
+                        <span id="total-price" class="text-danger">00.00</span>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="example-text-input" class="col-sm-3 col-form-label">Amount Paid:</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" placeholder="Amount" id="amount-paid">
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Paid Via:</label>
+                        <div class="col-sm-9">
+                            <select class="form-select" aria-label="Default select example" id="payment-method">
+                                <option value="cash">Cash</option>
+                                <option value="mpesa">Mpesa</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="example-text-input" class="col-sm-3 col-form-label">Balance:</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" placeholder="Balance" id="balance">
+                        </div>
+                    </div>
+
+                    <div class="row d-flex align-items-center" style="width: 150px;">
+                        <button type="submit" class="btn btn-success waves-effect waves-light">Print Receipt</button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="pos-container">
+   
+
+    
+</div>
+
+@section Scripts{
+    @{
+        <script src="~/js/site.js"></script>
+    }
+}

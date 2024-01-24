@@ -1,0 +1,65 @@
+﻿@model ProductVM
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="card-title">Menu List</h4>
+                    <a asp-controller="Product" asp-action="Upsert" class="btn btn-light d-flex align-items-center">
+
+                        <span class="material-symbols-sharp">
+                            add_circle
+                        </span>
+                        Create New Menu
+                    </a>
+                </div>
+  
+                <table id="myTable" class="table table-striped table-bordered dt-responsive nowrap">
+                    <thead>
+                        <tr>
+                            @* <th>Id</th> *@
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+                        @*  @foreach(var obj in Model.Products!)
+                {
+                    <tr>
+                        <td>@obj.Id</td>
+                        <td>@obj.Name</td>
+                        <td>@obj.Price</td>
+                        <td>
+                            <div class="actions">
+                                <a class="btn btn-light" asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id">
+                                    <span class="material-symbols-sharp">
+                                        edit_square
+                                    </span>
+                                    Edit
+                                </a>
+
+                                        <a class="btn btn-danger align-items-center" asp-controller="Product" asp-action="Delete" asp-route-id="@obj.Id">
+                                    <span class="material-symbols-sharp">
+                                        delete
+                                    </span>
+                                    Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                } *@
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div>
+
+@section Scripts{
+    <script src="~/js/product.js"></script>
+}
+

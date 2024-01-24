@@ -1,0 +1,90 @@
+﻿@page
+@model RegisterModel
+
+<div class="text-center mt-4">
+    <div class="mb-3">
+        <a href="index.html" class="auth-logo">
+            <img src="~/images/loci-logo.jpg" height="30" class="logo-dark mx-auto" alt="">
+            @* <img src="~/assets/images/logo-light.png" height="30" class="logo-light mx-auto" alt=""> *@
+        </a>
+    </div>
+</div>
+
+<h4 class="text-muted text-center font-size-18"><b>Register</b></h4>
+
+<div class="p-3">
+    <form method="post" class="form-horizontal mt-3">
+        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+        <div class="form-group mb-3 row">
+            <div class="col-12">
+                <input asp-for="Input.FirstName" class="form-control" autocomplete="firstname" aria-required="true" placeholder="First Name" />
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="form-group mb-3 row">
+            <div class="col-12">
+                <input asp-for="Input.LastName" class="form-control" autocomplete="lastname" aria-required="true" placeholder="Last Name" />
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="form-group mb-3 row">
+            <div class="col-12">
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="Email" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="form-group mb-3 row">
+            <div class="col-12">
+                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Password" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="form-group mb-3 row">
+            <div class="col-12">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Confirm password" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="form-group mb-3 row">
+            <div class="col-12">
+                <select class="form-select" asp-for="Input.Role" asp-items="@Model.Input.RoleList">
+                    <option disabled selected>Select Role</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group mb-3 row">
+            <div class="col-12">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                    <label class="form-label ms-1 fw-normal" for="customCheck1">I accept <a href="#" class="text-muted">Terms and Conditions</a></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group text-center row mt-3 pt-1">
+            <div class="col-12">
+                <button class="btn btn-info w-100 waves-effect waves-light" type="submit">Register</button>
+            </div>
+        </div>
+
+        <div class="form-group mt-2 mb-0 row">
+            <div class="col-12 mt-3 text-center">
+                <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="text-muted">Already have account?</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+                
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

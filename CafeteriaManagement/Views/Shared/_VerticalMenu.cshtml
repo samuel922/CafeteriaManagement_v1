@@ -1,0 +1,82 @@
+﻿<div class="vertical-menu">
+
+    <div data-simplebar class="h-100">    
+
+        <div class="user-profile text-center mt-3">
+            <h3 id="current-time">23:32:24 pm</h3>
+            <p id="current-date">Wed, Jan, 3, 2024</p>
+        </div>
+
+        <!--- Sidemenu -->
+        <div id="sidebar-menu">
+            <!-- Left Menu Start -->
+            <ul class="metismenu list-unstyled" id="side-menu">
+                <li class="menu-title">Menu</li>
+
+                <li>
+                    <a asp-controller="Dashboard" asp-action="Index" class="waves-effect">
+                        <i class="ri-dashboard-line"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-controller="Home" asp-action="Index" class="waves-effect">
+                        <i class="ri-printer-line"></i>
+                        <span>POS</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-controller="Order" asp-action="RecentOrders" class="waves-effect">
+                        <i class="ri-creative-commons-nc-line"></i>
+                        <span>Recent Sales</span>
+                    </a>
+                </li>
+
+                <li style="display: none;">
+                    <a href="calendar.html" class=" waves-effect">
+                        <i class="ri-calendar-2-line"></i>
+                        <span>Calendar</span>
+                    </a>
+                </li>
+
+                @if(User.IsInRole(SD.Role_Admin))
+                {
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-alpha-c-circle-outline"></i>
+                            <span>Account</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a asp-area="Identity"  asp-page="/Account/Register" >Create User</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-alpha-c-circle-outline"></i>
+                            <span>Manage Category</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a asp-controller="Category" asp-action="Index">Category</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-alpha-p-circle"></i>
+                            <span>Manage Product</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a asp-controller="Product" asp-action="Index">Product</a></li>
+                        </ul>
+                    </li>
+                }
+
+               
+
+            </ul>
+        </div>
+        <!-- Sidebar -->
+    </div>
+</div>

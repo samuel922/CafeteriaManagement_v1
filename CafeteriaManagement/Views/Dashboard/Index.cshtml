@@ -1,0 +1,175 @@
+﻿@functions{
+    decimal CalculateTotalRevenue(List<Order> orders) {
+        return orders.Sum(order => order.TotalPrice);
+    }
+
+    decimal CalculateRevenueLastWeek(List<Order> orders)
+    {
+        return orders.Where(order => order.OrderTime >= DateTime.Now.AddDays(-7)).Sum(order => order.TotalPrice);
+    }
+
+    decimal CalculateRevenueLastMonth(List<Order> orders)
+    {
+        return orders.Where(order => order.OrderTime >= DateTime.Now.AddMonths(-1)).Sum(order => order.TotalPrice);
+    }
+
+    int CalculateNewOrders(List<Order> orders) {
+        return orders.Count;
+    }
+
+    List<decimal> CalculateTrendData(List<Order> orders) {
+        List<decimal> trendData = new List<decimal>();
+        trendData = orders.Select(order => order.TotalPrice).ToList();
+        return trendData;
+    }
+}
+
+
+@model List<Order>
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Dashboard</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">LociAfrica</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-3 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                        <p class="text-truncate font-size-14 mb-2">Total Sales</p>
+                        <h4 class="mb-2">Ksh.@CalculateTotalRevenue(Model)</h4>
+                        <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
+                    </div>
+                    <div class="avatar-sm">
+                        <span class="avatar-title bg-light text-primary rounded-3">
+                            <i class="ri-shopping-cart-2-line font-size-24"></i>
+                        </span>
+                    </div>
+                </div>
+            </div><!-- end cardbody -->
+        </div><!-- end card -->
+    </div><!-- end col -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                        <p class="text-truncate font-size-14 mb-2">New Orders</p>
+                        <h4 class="mb-2">@CalculateNewOrders(Model)</h4>
+                        <p class="text-muted mb-0"><span class="text-danger fw-bold font-size-12 me-2"><i class="ri-arrow-right-down-line me-1 align-middle"></i>1.09%</span>from previous period</p>
+                    </div>
+                    <div class="avatar-sm">
+                        <span class="avatar-title bg-light text-success rounded-3">
+                            <i class="mdi mdi-currency-usd font-size-24"></i>
+                        </span>
+                    </div>
+                </div>
+            </div><!-- end cardbody -->
+        </div><!-- end card -->
+    </div><!-- end col -->
+   
+</div><!-- end row -->
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body pb-0">
+                <div class="float-end d-none d-md-inline-block">
+                    <div class="dropdown">
+                        <a class="text-reset" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="text-muted">This Years<i class="mdi mdi-chevron-down ms-1"></i></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="#">Today</a>
+                            <a class="dropdown-item" href="#">Last Week</a>
+                            <a class="dropdown-item" href="#">Last Month</a>
+                            <a class="dropdown-item" href="#">This Year</a>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="card-title mb-4">Revenue</h4>
+
+                <div class="text-center pt-3">
+                    <div class="row">
+                        <div class="col-sm-4 mb-3 mb-sm-0">
+                            <div>
+                                <h5>Ksh.@CalculateTotalRevenue(Model)</h5>
+                                <p class="text-muted text-truncate mb-0">Revenue</p>
+                            </div>
+                        </div><!-- end col -->
+                        <div class="col-sm-4 mb-3 mb-sm-0">
+                            <div>
+                                <h5>Ksh.@CalculateRevenueLastWeek(Model)</h5>
+                                <p class="text-muted text-truncate mb-0">Last Week</p>
+                            </div>
+                        </div><!-- end col -->
+                        <div class="col-sm-4">
+                            <div>
+                                <h5>Ksh.@CalculateRevenueLastMonth(Model)</h5>
+                                <p class="text-muted text-truncate mb-0">Last Month</p>
+                            </div>
+                        </div><!-- end col -->
+                    </div><!-- end row -->
+                </div>
+            </div>
+            <div class="card-body py-0 px-2">
+                <div id="column_chart" class="apex-charts" dir="ltr"></div>
+            </div>
+        </div><!-- end card -->
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+        var options = {
+            chart: {
+                height: 350,
+                type: 'line',
+            },
+            stroke: {
+                width: [0, 4], 
+            },
+            series: [{
+                name: 'Revenue',
+                type: 'column',
+                data: [@CalculateTotalRevenue(Model), @CalculateRevenueLastWeek(Model), @CalculateRevenueLastMonth(Model)]
+            }, {
+                name: 'Trend',
+                type: 'line',
+                data: @Html.Raw(Json.Serialize(CalculateTrendData(Model)))
+            }],
+            xaxis: {
+                categories: ['Total Revenue', 'Last Week', 'Last Month']
+            },
+            yaxis: [{
+                title: {
+                    text: 'Revenue (Bar)',
+                },
+            }, {
+                opposite: true,
+                title: {
+                    text: 'Trend (Line)',
+                },
+            }],
+        };
+
+        var chart = new ApexCharts(document.querySelector("#column_chart"), options);
+        chart.render();
+    </script>
+
+}
+

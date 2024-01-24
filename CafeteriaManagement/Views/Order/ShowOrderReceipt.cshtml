@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Receipt</title>
+</head>
+<body>
+    @if (!string.IsNullOrEmpty(ViewData["PdfContent"] as string))
+    {
+        <embed src="data:application/pdf;base64,@ViewData["PdfContent"]" type="application/pdf" width="100%" height="600px" />
+    }
+    else
+    {
+        <p>PDF content is not available.</p>
+    }
+</body>
+</html>

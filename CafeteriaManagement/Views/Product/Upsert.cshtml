@@ -1,0 +1,60 @@
+﻿@model ProductVM
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">@(Model.Product.Id != 0 ? "Update" : "Create") Product</h2>
+                <form method="post" class="form" enctype="multipart/form-data">
+
+                    <input asp-for="Product.Id" hidden />
+                    <input asp-for="Product.ImageUrl" hidden />
+
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" asp-for="Product.Name"></label>
+                        <input asp-for="Product.Name" class="form-control" />
+                        <span asp-validation-for="Product.Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Category</label>
+                        <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select" aria-label="Default select example">
+                            <option>--Select Category--</option>
+                        </select>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" asp-for="Product.Price"></label>
+                        <input asp-for="Product.Price" class="form-control" />
+                        <span asp-validation-for="Product.Price" class="text-danger"></span>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" asp-for="Product.ImageUrl"></label>
+                        <input class="form-control" type="file" name="file" asp-for="Product.ImageUrl" />
+                    </div>
+
+                    <div class="actions">
+                        @if (Model.Product.Id != 0)
+                        {
+                            <button class="btn btn-primary" type="submit">Update</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-primary" type="submit">Create</button>
+                        }
+
+                        <a class="btn btn-outline-light" asp-controller="Product" asp-action="Index">Back to List</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
